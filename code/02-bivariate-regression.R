@@ -27,3 +27,9 @@ cortest
 #P-Value (0.000000021) shows it is extremely unlikely one would observe this much of a patter if there were no underlying
 #relationship between the values
 #Therefore we reject H0 and find statistically significant evidence of an association
+
+
+
+
+cortest <- cor.test(wick10_18$TotalUndergrad, wick10_18$White, method = c("pearson"))
+cortest
