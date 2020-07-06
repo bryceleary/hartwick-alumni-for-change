@@ -1,0 +1,500 @@
+---
+title: "Hartwick College Enrollment Data"
+author: "Bryce Leary"
+date: "7/5/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Examining Enrollment Data at Harwick COllege ###
+```{r importclean, include=FALSE, warning = FALSE}
+###Set-Up
+library(tidyverse)
+library(here)
+
+###Data Import
+"WickAdmits" <- read.csv("C:/Users/melut/Desktop/hartwick-alumni-for-change/data/Data_6-27-2020.csv", header=TRUE)
+
+#Delete unnessary 'variables'
+"WickAdmits2" <- select(WickAdmits,-1,-2)
+
+#Add year column
+"WickAdmits3" <- mutate(WickAdmits2, "year")
+
+#Rename all variables to be kept
+"WickAdmits4" <- WickAdmits3 %>% rename("TotalAdmits_2014" = Admissions.total..ADM2014_RV.,
+                                        "TotalAdmits_2015" = Admissions.total..ADM2015_RV.,
+                                        "TotalAdmits_2016" = Admissions.total..ADM2016_RV.,
+                                        "TotalAdmits_2017" = Admissions.total..ADM2017_RV.,
+                                        "TotalAdmits_2018" = Admissions.total..ADM2018.,
+                                        "TotalAdmits_2001" = Admissions.total..IC2001.,
+                                        "TotalAdmits_2002" = Admissions.total..IC2002.,
+                                        "TotalAdmits_2003" = Admissions.total..IC2003.,
+                                        "TotalAdmits_2004" = Admissions.total..IC2004.,
+                                        "TotalAdmits_2005" = Admissions.total..IC2005.,
+                                        "TotalAdmits_2006" = Admissions.total..IC2006.,
+                                        "TotalAdmits_2007" = Admissions.total..IC2007.,
+                                        "TotalAdmits_2008" = Admissions.total..IC2008_RV.,
+                                        "TotalAdmits_2009" = Admissions.total..IC2009_RV.,
+                                        "TotalAdmits_2010" = Admissions.total..IC2010_RV.,
+                                        "TotalAdmits_2011" = Admissions.total..IC2011_RV.,
+                                        "TotalAdmits_2012" = Admissions.total..IC2012_RV.,
+                                        "TotalAdmits_2013" = Admissions.total..IC2013_RV.,
+                                        "AmericanIndian_2000" = American.Indian.Alaska.Native.total..EF2000A..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2001" = American.Indian.Alaska.Native.total..EF2001A..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2002" = American.Indian.Alaska.Native.total..EF2002A..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2003" = American.Indian.or.Alaska.Native.total..EF2003A..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2004" = American.Indian.or.Alaska.Native.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2005" = American.Indian.or.Alaska.Native.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2006" = American.Indian.or.Alaska.Native.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2007" = American.Indian.or.Alaska.Native.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2008" = American.Indian.or.Alaska.Native.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2009" = American.Indian.or.Alaska.Native.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2010" = American.Indian.or.Alaska.Native.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2011" = American.Indian.or.Alaska.Native.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2012" = American.Indian.or.Alaska.Native.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2013" = American.Indian.or.Alaska.Native.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2014" = American.Indian.or.Alaska.Native.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2015" = American.Indian.or.Alaska.Native.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2016" = American.Indian.or.Alaska.Native.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2017" = American.Indian.or.Alaska.Native.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2018" = American.Indian.or.Alaska.Native.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Apps_2014" = Applicants.total..ADM2014_RV.,
+                                        "Apps_2015" = Applicants.total..ADM2015_RV.,
+                                        "Apps_2016" = Applicants.total..ADM2016_RV.,
+                                        "Apps_2017" = Applicants.total..ADM2017_RV.,
+                                        "Apps_2018" = Applicants.total..ADM2018.,
+                                        "Apps_2001" = Applicants.total..IC2001.,
+                                        "Apps_2002" = Applicants.total..IC2002.,
+                                        "Apps_2003" = Applicants.total..IC2003.,
+                                        "Apps_2004" = Applicants.total..IC2004.,
+                                        "Apps_2005" = Applicants.total..IC2005.,
+                                        "Apps_2006" = Applicants.total..IC2006.,
+                                        "Apps_2007" = Applicants.total..IC2007.,
+                                        "Apps_2008" = Applicants.total..IC2008_RV.,
+                                        "Apps_2009" = Applicants.total..IC2009_RV.,
+                                        "Apps_2010" = Applicants.total..IC2010_RV.,
+                                        "Apps_2011" = Applicants.total..IC2011_RV.,
+                                        "Apps_2012" = Applicants.total..IC2012_RV.,
+                                        "Apps_2013" = Applicants.total..IC2013_RV.,
+                                        "Asian_2000" = Asian.or.Pacific.Islander.total..EF2000A..All.students..Undergraduate.total.,
+                                        "Asian_2001" = Asian.or.Pacific.Islander.total..EF2001A..All.students..Undergraduate.total.,
+                                        "Asian_2002" = Asian.or.Pacific.Islander.total..EF2002A..All.students..Undergraduate.total.,
+                                        "Asian_2003" = Asian.or.Pacific.Islander.total..EF2003A..All.students..Undergraduate.total.,
+                                        "Asian_2004" = Asian.or.Pacific.Islander.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2005" = Asian.or.Pacific.Islander.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2006" = Asian.or.Pacific.Islander.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2007" = Asian.or.Pacific.Islander.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2008" = Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2009" = Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2010" = Asian.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2011" = Asian.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2012" = Asian.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2013" = Asian.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2014" = Asian.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2015" = Asian.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2016" = Asian.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2017" = Asian.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2018" = Asian.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Black_2000" = Black.non.Hispanic..total..EF2000A..All.students..Undergraduate.total.,
+                                        "Black_2001" = Black.non.Hispanic..total..EF2001A..All.students..Undergraduate.total.,
+                                        "Black_2002" = Black.non.Hispanic..total..EF2002A..All.students..Undergraduate.total.,
+                                        "Black_2003" = Black..non.Hispanic..total..EF2003A..All.students..Undergraduate.total.,
+                                        "Black_2004" = Black.non.Hispanic..total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "Black_2005" = Black.non.Hispanic..total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "Black_2006" = Black.non.Hispanic..total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "Black_2007" = Black.non.Hispanic..total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "Black_2008" = Black.non.Hispanic..total...old..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "Black_2009" = Black.non.Hispanic..total...old..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "Black_2010" = Black.or.African.American.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "Black_2011" = Black.or.African.American.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "Black_2012" = Black.or.African.American.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "Black_2013" = Black.or.African.American.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "Black_2014" = Black.or.African.American.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "Black_2015" = Black.or.African.American.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "Black_2016" = Black.or.African.American.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "Black_2017" = Black.or.African.American.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "Black_2018" = Black.or.African.American.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Enrolled_2001" = Enrolled.total..IC2001.,
+                                        "Enrolled_2002" = Enrolled.total..IC2002.,
+                                        "Enrolled_2003" = Enrolled.total..IC2003.,
+                                        "Enrolled_2004" = Enrolled.total..IC2004.,
+                                        "Enrolled_2005" = Enrolled.total..IC2005.,
+                                        "Enrolled_2006" = Enrolled.total..IC2006.,
+                                        "Enrolled_2007" = Enrolled.total..IC2007.,
+                                        "Enrolled_2008" = Enrolled.total..IC2008_RV.,
+                                        "Enrolled_2009" = Enrolled.total..IC2009_RV.,
+                                        "Enrolled_2010" = Enrolled.total..IC2010_RV.,
+                                        "Enrolled_2011" = Enrolled.total..IC2011_RV.,
+                                        "Enrolled_2012" = Enrolled.total..IC2012_RV.,
+                                        "Enrolled_2013" = Enrolled.total..IC2013_RV.,
+                                        "Enrolled_2014" = Enrolled.total..ADM2014_RV.,
+                                        "Enrolled_2015" = Enrolled.total..ADM2015_RV.,
+                                        "Enrolled_2016" = Enrolled.total..ADM2016_RV.,
+                                        "Enrolled_2017" = Enrolled.total..ADM2017_RV.,
+                                        "Enrolled_2018" = Enrolled.total..ADM2018.,
+                                        "TotalUndergrad_2000" = Grand.total..EF2000A..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2001" = Grand.total..EF2001A..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2002" = Grand.total..EF2002A..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2003" = Grand.total..EF2003A..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2004" = Grand.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2005" = Grand.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2006" = Grand.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2007" = Grand.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2008" = Grand.total..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2009" = Grand.total..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2010" = Grand.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2011" = Grand.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2012" = Grand.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2013" = Grand.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2014" = Grand.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2015" = Grand.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2016" = Grand.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2017" = Grand.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "TotalUndergrad_2018" = Grand.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Hispanic_2000" = Hispanic.total..EF2000A..All.students..Undergraduate.total.,
+                                        "Hispanic_2001" = Hispanic.total..EF2001A..All.students..Undergraduate.total.,
+                                        "Hispanic_2002" = Hispanic.total..EF2002A..All.students..Undergraduate.total.,
+                                        "Hispanic_2003" = Hispanic.total..EF2003A..All.students..Undergraduate.total.,
+                                        "Hispanic_2004" = Hispanic.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2005" = Hispanic.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2006" = Hispanic.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2007" = Hispanic.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2008" = Hispanic.total...old..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2009" = Hispanic.total...old..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2010" = Hispanic.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2011" = Hispanic.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2012" = Hispanic.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2013" = Hispanic.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2014" = Hispanic.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2015" = Hispanic.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2016" = Hispanic.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2017" = Hispanic.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "Hispanic_2018" = Hispanic.total..EF2018A..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2008" = Native.Hawaiian.or.Other.Pacific.Islander.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2009" = Native.Hawaiian.or.Other.Pacific.Islander.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2010" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2011" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2012" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2013" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2014" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2015" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2016" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2017" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "HawaiianPacificIslander_2018" = Native.Hawaiian.or.Other.Pacific.Islander.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Nonresident_2000" = Nonresident.alien.total..EF2000A..All.students..Undergraduate.total.,
+                                        "Nonresident_2001" = Nonresident.alien.total..EF2001A..All.students..Undergraduate.total.,
+                                        "Nonresident_2002" = Nonresident.alien.total..EF2002A..All.students..Undergraduate.total.,
+                                        "Nonresident_2003" = Nonresident.alien.total..EF2003A..All.students..Undergraduate.total.,
+                                        "Nonresident_2004" = Nonresident.alien.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2005" = Nonresident.alien.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2006" = Nonresident.alien.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2007" = Nonresident.alien.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2008" = Nonresident.alien.total..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2009" = Nonresident.alien.total..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2010" = Nonresident.alien.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2011" = Nonresident.alien.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2012" = Nonresident.alien.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2013" = Nonresident.alien.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2014" = Nonresident.alien.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2015" = Nonresident.alien.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2016" = Nonresident.alien.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2017" = Nonresident.alien.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "Nonresident_2018" = Nonresident.alien.total..EF2018A..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2000" = Race.ethnicity.unknown.total..EF2000A..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2001" = Race.ethnicity.unknown.total..EF2001A..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2002" = Race.ethnicity.unknown.total..EF2002A..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2003" = Race.ethnicity.unknown.total..EF2003A..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2004" = Race.ethnicity.unknown.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2005" = Race.ethnicity.unknown.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2006" = Race.ethnicity.unknown.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2007" = Race.ethnicity.unknown.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2008" = Race.ethnicity.unknown.total..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2009" = Race.ethnicity.unknown.total..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2010" = Race.ethnicity.unknown.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2011" = Race.ethnicity.unknown.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2012" = Race.ethnicity.unknown.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2013" = Race.ethnicity.unknown.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2014" = Race.ethnicity.unknown.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2015" = Race.ethnicity.unknown.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2016" = Race.ethnicity.unknown.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2017" = Race.ethnicity.unknown.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "RaceEthnicityUnknown_2018" = Race.ethnicity.unknown.total..EF2018A..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2008" = Two.or.more.races.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2009" = Two.or.more.races.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2010" = Two.or.more.races.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2011" = Two.or.more.races.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2012" = Two.or.more.races.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2013" = Two.or.more.races.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2014" = Two.or.more.races.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2015" = Two.or.more.races.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2016" = Two.or.more.races.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2017" = Two.or.more.races.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "TwoOrMore_2018" = Two.or.more.races.total..EF2018A..All.students..Undergraduate.total.,
+                                        "White_2000" = White.non.Hispanic.total..EF2000A..All.students..Undergraduate.total.,
+                                        "White_2001" = White.non.Hispanic.total..EF2001A..All.students..Undergraduate.total.,
+                                        "White_2002" = White.non.Hispanic.total..EF2002A..All.students..Undergraduate.total.,
+                                        "White_2003" = White..non.Hispanic.total..EF2003A..All.students..Undergraduate.total.,
+                                        "White_2004" = White.non.Hispanic.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "White_2005" = White.non.Hispanic.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "White_2006" = White.non.Hispanic.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "White_2007" = White.non.Hispanic.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "White_2008" = White.non.Hispanic.total...old..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "White_2009" = White.non.Hispanic.total...old..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "White_2010" = White.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "White_2011" = White.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "White_2012" = White.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "White_2013" = White.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "White_2014" = White.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "White_2015" = White.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "White_2016" = White.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "White_2017" = White.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "White_2018" = White.total..EF2018A..All.students..Undergraduate.total.)
+
+
+#Remove variables which will not be used
+wickdata <- select(WickAdmits4, -c(American.Indian.or.Alaska.Native.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   American.Indian.or.Alaska.Native.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                   American.Indian.or.Alaska.Native.total..EF2008A_RV..All.students..Undergraduate.total.,
+                                   American.Indian.or.Alaska.Native.total..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Asian.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Asian.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Asian.or.Pacific.Islander.total....old..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Asian.or.Pacific.Islander.total....old..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Black.or.African.American.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Black.or.African.American.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Black.or.African.American.Black.non.Hispanic.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Black.or.African.American.Black.non.Hispanic.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Hispanic.or.Latino.Hispanic..total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Hispanic.or.Latino.Hispanic..total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Hispanic.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Hispanic.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                   White.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   White.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                   White.White.non.Hispanic.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                   White.White.non.Hispanic.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                   X))
+
+#Shift into time series format
+"data2018" <- select(wickdata, contains("2018"))
+data2018 <- mutate(data2018, "year" = 2018)
+data2018 <- rename_all(data2018, funs(str_replace(., "_2018", "")))
+
+"data2017" <- select(wickdata, contains("2017"))
+data2017 <- mutate(data2017, "year" = 2017)
+data2017 <- rename_all(data2017, funs(str_replace(., "_2017", "")))
+
+"data2016" <- select(wickdata, contains("2016"))
+data2016 <- mutate(data2016, "year" = 2016)
+data2016 <- rename_all(data2016, funs(str_replace(., "_2016", "")))
+
+"data2015" <- select(wickdata, contains("2015"))
+data2015 <- mutate(data2015, "year" = 2015)
+data2015 <- rename_all(data2015, funs(str_replace(., "_2015", "")))
+
+"data2014" <- select(wickdata, contains("2014"))
+data2014 <- mutate(data2014, "year" = 2014)
+data2014 <- rename_all(data2014, funs(str_replace(., "_2014", "")))
+
+"data2013" <- select(wickdata, contains("2013"))
+data2013 <- mutate(data2013, "year" = 2013)
+data2013 <- rename_all(data2013, funs(str_replace(., "_2013", "")))
+
+"data2012" <- select(wickdata, contains("2012"))
+data2012 <- mutate(data2012, "year" = 2012)
+data2012 <- rename_all(data2012, funs(str_replace(., "_2012", "")))
+
+"data2011" <- select(wickdata, contains("2011"))
+data2011 <- mutate(data2011, "year" = 2011)
+data2011 <- rename_all(data2011, funs(str_replace(., "_2011", "")))
+
+"data2010" <- select(wickdata, contains("2010"))
+data2010 <- mutate(data2010, "year" = 2010)
+data2010 <- rename_all(data2010, funs(str_replace(., "_2010", "")))
+
+"data2009" <- select(wickdata, contains("2009"))
+data2009 <- mutate(data2009, "year" = 2009)
+data2009 <- rename_all(data2009, funs(str_replace(., "_2009", "")))
+
+"data2008" <- select(wickdata, contains("2008"))
+data2008 <- mutate(data2008, "year" = 2008)
+data2008 <- rename_all(data2008, funs(str_replace(., "_2008", "")))
+
+"data2007" <- select(wickdata, contains("2007"))
+data2007 <- mutate(data2007, "year" = 2007)
+data2007 <- rename_all(data2007, funs(str_replace(., "_2007", "")))
+data2007 <- mutate(data2007, "TwoOrMore" = NA)
+data2007 <- mutate(data2007, "HawaiianPacificIslander" = NA)
+
+"data2006" <- select(wickdata, contains("2006"))
+data2006 <- mutate(data2006, "year" = 2006)
+data2006 <- rename_all(data2006, funs(str_replace(., "_2006", "")))
+data2006 <- mutate(data2006, "TwoOrMore" = NA)
+data2006 <- mutate(data2006, "HawaiianPacificIslander" = NA)
+
+"data2005" <- select(wickdata, contains("2005"))
+data2005 <- mutate(data2005, "year" = 2005)
+data2005 <- rename_all(data2005, funs(str_replace(., "_2005", "")))
+data2005 <- mutate(data2005, "TwoOrMore" = NA)
+data2005 <- mutate(data2005, "HawaiianPacificIslander" = NA)
+
+"data2004" <- select(wickdata, contains("2004"))
+data2004 <- mutate(data2004, "year" = 2004)
+data2004 <- rename_all(data2004, funs(str_replace(., "_2004", "")))
+data2004 <- mutate(data2004, "TwoOrMore" = NA)
+data2004 <- mutate(data2004, "HawaiianPacificIslander" = NA)
+
+"data2003" <- select(wickdata, contains("2003"))
+data2003 <- mutate(data2003, "year" = 2003)
+data2003 <- rename_all(data2003, funs(str_replace(., "_2003", "")))
+data2003 <- mutate(data2003, "TwoOrMore" = NA)
+data2003 <- mutate(data2003, "HawaiianPacificIslander" = NA)
+
+"data2002" <- select(wickdata, contains("2002"))
+data2002 <- mutate(data2002, "year" = 2002)
+data2002 <- rename_all(data2002, funs(str_replace(., "_2002", "")))
+data2002 <- mutate(data2002, "TwoOrMore" = NA)
+data2002 <- mutate(data2002, "HawaiianPacificIslander" = NA)
+
+"data2001" <- select(wickdata, contains("2001"))
+data2001 <- mutate(data2001, "year" = 2001)
+data2001 <- rename_all(data2001, funs(str_replace(., "_2001", "")))
+data2001 <- mutate(data2001, "TwoOrMore" = NA)
+data2001 <- mutate(data2001, "HawaiianPacificIslander" = NA)
+
+"data2000" <- select(wickdata, contains("2000"))
+data2000 <- mutate(data2000, "year" = 2000)
+data2000 <- rename_all(data2000, funs(str_replace(., "_2000", "")))
+data2000 <- mutate(data2000, "TwoOrMore" = NA)
+data2000 <- mutate(data2000, "Apps" = NA)
+data2000 <- mutate(data2000, "TotalAdmits" = NA)
+data2000 <- mutate(data2000, "Enrolled" = NA)
+data2000 <- mutate(data2000, "HawaiianPacificIslander" = NA)
+
+finalwickdata <- rbind(data2000, data2001, data2002, data2003, data2004, data2005, data2006, data2007, data2008,
+                       data2009, data2010, data2011, data2012, data2013, data2014, data2015, data2016, data2017, data2018)
+
+finalwickdata <- finalwickdata[, c(9, 11, 12, 13, 1, 2, 3, 4, 5, 6, 7, 14, 10, 8)]
+
+#Create percentage data
+finalwickdata <- mutate(finalwickdata, "WhitePer" = White/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "BlackPer" = Black/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "HispanicPer" = Hispanic/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "AsianPer" = Asian/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "AmericanIndianPer" = AmericanIndian/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "UnknownPer" = RaceEthnicityUnknown/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "HawaiianPacificPer" = HawaiianPacificIslander/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "TwoOrMorePer" = TwoOrMore/TotalUndergrad * 100)
+
+"wick10_18" <- subset(finalwickdata, year >=2010)
+
+
+```
+
+# Overview
+
+Derp derp derp
+
+# Data
+
+Derp derp derp
+
+#Findings
+
+Derp derp derp
+
+#Hartwick Undergraduate Enrollment in total numbers
+
+Derp derp derp
+
+```{r undergrad, echo=FALSE, warning = FALSE}
+colors <- c("White" = "blue", "Black" = "Purple", "Hispanic" = "Orange", "Asian" = "Pink",
+            "American Indian & Alaska Native" = "Magenta", "Race & Ethnicity Unknown" = "Green", 
+            "Hawaiian & Pacific Islander" = "Yellow", "Two or More Races" = "Light Blue")
+ggplot(data=finalwickdata, mapping = aes(x = year)) +
+  geom_line(aes(y = White, color = "White")) +
+  geom_line(aes(y = Black, color = "Black")) +
+  geom_line(aes(y = Hispanic, color = "Hispanic")) +
+  geom_line(aes(y = Asian, color = "Asian")) +
+  geom_line(aes(y = AmericanIndian, color = "American Indian & Alaska Native")) +
+  geom_line(aes(y = RaceEthnicityUnknown, color = "Race & Ethnicity Unknown")) +
+  geom_line(aes(y = HawaiianPacificIslander, color = "Hawaiian & Pacific Islander")) +
+  geom_line(aes(y = TwoOrMore, color = "Two Or More Races"))+
+  labs(title = "Hartwick College Undergraduate Enrollment by Race 2000-2018",
+       x = "Year",
+       y = "Undergraduate Students",
+       color = "Legend")+
+  scale_color_manual(values = colors)+
+  theme(legend.position = "right")
+
+colors <- c("White" = "blue", "Black" = "Purple", "Hispanic" = "Orange", "Asian" = "Pink",
+            "American Indian & Alaska Native" = "Magenta", "Race & Ethnicity Unknown" = "Green", 
+            "Hawaiian & Pacific Islander" = "Yellow", "Two or More Races" = "Light Blue")
+ggplot(data=wick10_18, mapping = aes(x = year)) +
+  geom_line(aes(y = White, color = "White")) +
+  geom_line(aes(y = Black, color = "Black")) +
+  geom_line(aes(y = Hispanic, color = "Hispanic")) +
+  geom_line(aes(y = Asian, color = "Asian")) +
+  geom_line(aes(y = AmericanIndian, color = "American Indian & Alaska Native")) +
+  geom_line(aes(y = RaceEthnicityUnknown, color = "Race & Ethnicity Unknown")) +
+  geom_line(aes(y = HawaiianPacificIslander, color = "Hawaiian & Pacific Islander")) +
+  geom_line(aes(y = TwoOrMore, color = "Two Or More Races"))+
+  labs(title = "Hartwick College Undergraduate Enrollment by Race 2000-2018",
+       x = "Year",
+       y = "Undergraduate Students",
+       color = "Legend")+
+  scale_color_manual(values = colors)+
+  theme(legend.position = "right")
+```
+#Hartwick Undergraduate Enrollment as Percent of Undergraduates
+Derp derp derp
+
+```{r percent, echo=FALSE, warning = FALSE}
+
+colors <- c("White" = "blue", "Black" = "Purple", "Hispanic" = "Orange", "Asian" = "Pink",
+            "American Indian & Alaska Native" = "Magenta", "Race & Ethnicity Unknown" = "Green", 
+            "Hawaiian & Pacific Islander" = "Yellow", "Two or More Races" = "Light Blue")
+ggplot(data=finalwickdata, mapping = aes(x = year)) +
+  geom_line(aes(y = WhitePer, color = "White")) +
+  geom_line(aes(y = BlackPer, color = "Black")) +
+  geom_line(aes(y = HispanicPer, color = "Hispanic")) +
+  geom_line(aes(y = AsianPer, color = "Asian")) +
+  geom_line(aes(y = AmericanIndianPer, color = "American Indian & Alaska Native")) +
+  geom_line(aes(y = UnknownPer, color = "Race & Ethnicity Unknown")) +
+  geom_line(aes(y = HawaiianPacificPer, color = "Hawaiian & Pacific Islander")) +
+  geom_line(aes(y = TwoOrMorePer, color = "Two Or More Races"))+
+  labs(title = "Hartwick College Undergraduate Enrollment by Race as A Percent of Undergraduates 2000-2018",
+       x = "Year",
+       y = "Undergraduate Students",
+       color = "Legend")+
+  scale_color_manual(values = colors)+
+  theme(legend.position = "right")
+
+
+#Create plot showing percent change over time
+colors <- c("White" = "blue", "Black" = "Purple", "Hispanic" = "Orange", "Asian" = "Pink",
+            "American Indian & Alaska Native" = "Magenta", "Race & Ethnicity Unknown" = "Green", 
+            "Hawaiian & Pacific Islander" = "Yellow", "Two or More Races" = "Light Blue")
+ggplot(data=wick10_18, mapping = aes(x = year)) +
+  geom_line(aes(y = WhitePer, color = "White")) +
+  geom_line(aes(y = BlackPer, color = "Black")) +
+  geom_line(aes(y = HispanicPer, color = "Hispanic")) +
+  geom_line(aes(y = AsianPer, color = "Asian")) +
+  geom_line(aes(y = AmericanIndianPer, color = "American Indian & Alaska Native")) +
+  geom_line(aes(y = UnknownPer, color = "Race & Ethnicity Unknown")) +
+  geom_line(aes(y = HawaiianPacificPer, color = "Hawaiian & Pacific Islander")) +
+  geom_line(aes(y = TwoOrMorePer, color = "Two Or More Races"))+
+  labs(title = "Hartwick College Undergraduate Enrollment by Race as A Percent of Undergraduates 2000-2018",
+       x = "Year",
+       y = "Undergraduate Students",
+       color = "Legend")+
+  scale_color_manual(values = colors)+
+  theme(legend.position = "right")
+
+
+
+```
