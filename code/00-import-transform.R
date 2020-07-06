@@ -37,8 +37,8 @@ library(here)
                                         "AmericanIndian_2005" = American.Indian.or.Alaska.Native.total..EF2005A_RV..All.students..Undergraduate.total.,
                                         "AmericanIndian_2006" = American.Indian.or.Alaska.Native.total..EF2006A_RV..All.students..Undergraduate.total.,
                                         "AmericanIndian_2007" = American.Indian.or.Alaska.Native.total..EF2007A_RV..All.students..Undergraduate.total.,
-                                        "AmericanIndian_2008" = American.Indian.or.Alaska.Native.total...new..EF2008A_RV..All.students..Undergraduate.total.,
-                                        "AmericanIndian_2009" = American.Indian.or.Alaska.Native.total...new..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2008" = American.Indian.or.Alaska.Native.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "AmericanIndian_2009" = American.Indian.or.Alaska.Native.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
                                         "AmericanIndian_2010" = American.Indian.or.Alaska.Native.total..EF2010A_RV..All.students..Undergraduate.total.,
                                         "AmericanIndian_2011" = American.Indian.or.Alaska.Native.total..EF2011A_RV..All.students..Undergraduate.total.,
                                         "AmericanIndian_2012" = American.Indian.or.Alaska.Native.total..EF2012A_RV..All.students..Undergraduate.total.,
@@ -66,25 +66,25 @@ library(here)
                                         "Apps_2011" = Applicants.total..IC2011_RV.,
                                         "Apps_2012" = Applicants.total..IC2012_RV.,
                                         "Apps_2013" = Applicants.total..IC2013_RV.,
-                                        "AsianPacificIslander_2000" = Asian.or.Pacific.Islander.total..EF2000A..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2001" = Asian.or.Pacific.Islander.total..EF2001A..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2002" = Asian.or.Pacific.Islander.total..EF2002A..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2003" = Asian.or.Pacific.Islander.total..EF2003A..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2004" = Asian.or.Pacific.Islander.total..EF2004A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2005" = Asian.or.Pacific.Islander.total..EF2005A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2006" = Asian.or.Pacific.Islander.total..EF2006A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2007" = Asian.or.Pacific.Islander.total..EF2007A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2008" = Asian.total...new..EF2008A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2009" = Asian.total...new..EF2009A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2010" = Asian.total..EF2010A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2011" = Asian.total..EF2011A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2012" = Asian.total..EF2012A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2013" = Asian.total..EF2013A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2014" = Asian.total..EF2014A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2015" = Asian.total..EF2015A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2016" = Asian.total..EF2016A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2017" = Asian.total..EF2017A_RV..All.students..Undergraduate.total.,
-                                        "AsianPacificIslander_2018" = Asian.total..EF2018A..All.students..Undergraduate.total.,
+                                        "Asian_2000" = Asian.or.Pacific.Islander.total..EF2000A..All.students..Undergraduate.total.,
+                                        "Asian_2001" = Asian.or.Pacific.Islander.total..EF2001A..All.students..Undergraduate.total.,
+                                        "Asian_2002" = Asian.or.Pacific.Islander.total..EF2002A..All.students..Undergraduate.total.,
+                                        "Asian_2003" = Asian.or.Pacific.Islander.total..EF2003A..All.students..Undergraduate.total.,
+                                        "Asian_2004" = Asian.or.Pacific.Islander.total..EF2004A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2005" = Asian.or.Pacific.Islander.total..EF2005A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2006" = Asian.or.Pacific.Islander.total..EF2006A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2007" = Asian.or.Pacific.Islander.total..EF2007A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2008" = Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2009" = Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2010" = Asian.total..EF2010A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2011" = Asian.total..EF2011A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2012" = Asian.total..EF2012A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2013" = Asian.total..EF2013A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2014" = Asian.total..EF2014A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2015" = Asian.total..EF2015A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2016" = Asian.total..EF2016A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2017" = Asian.total..EF2017A_RV..All.students..Undergraduate.total.,
+                                        "Asian_2018" = Asian.total..EF2018A..All.students..Undergraduate.total.,
                                         "Black_2000" = Black.non.Hispanic..total..EF2000A..All.students..Undergraduate.total.,
                                         "Black_2001" = Black.non.Hispanic..total..EF2001A..All.students..Undergraduate.total.,
                                         "Black_2002" = Black.non.Hispanic..total..EF2002A..All.students..Undergraduate.total.,
@@ -242,12 +242,12 @@ library(here)
 
 
 #Remove variables which will not be used
-wickdata <- select(WickAdmits4, -c(American.Indian.or.Alaska.Native.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
-                                   American.Indian.or.Alaska.Native.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+wickdata <- select(WickAdmits4, -c(American.Indian.or.Alaska.Native.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   American.Indian.or.Alaska.Native.total...new..EF2009A_RV..All.students..Undergraduate.total.,
                                    American.Indian.or.Alaska.Native.total..EF2008A_RV..All.students..Undergraduate.total.,
                                    American.Indian.or.Alaska.Native.total..EF2009A_RV..All.students..Undergraduate.total.,
-                                   Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2008A_RV..All.students..Undergraduate.total.,
-                                   Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived..EF2009A_RV..All.students..Undergraduate.total.,
+                                   Asian.total...new..EF2008A_RV..All.students..Undergraduate.total.,
+                                   Asian.total...new..EF2009A_RV..All.students..Undergraduate.total.,
                                    Asian.or.Pacific.Islander.total....old..EF2008A_RV..All.students..Undergraduate.total.,
                                    Asian.or.Pacific.Islander.total....old..EF2009A_RV..All.students..Undergraduate.total.,
                                    Black.or.African.American.total...new..EF2008A_RV..All.students..Undergraduate.total.,
@@ -369,8 +369,8 @@ finalwickdata <- finalwickdata[, c(9, 11, 12, 13, 1, 2, 3, 4, 5, 6, 7, 14, 10, 8
 finalwickdata <- mutate(finalwickdata, "WhitePer" = White/TotalUndergrad * 100)
 finalwickdata <- mutate(finalwickdata, "BlackPer" = Black/TotalUndergrad * 100)
 finalwickdata <- mutate(finalwickdata, "HispanicPer" = Hispanic/TotalUndergrad * 100)
-finalwickdata <- mutate(finalwickdata, "AsianPacificPer" = AsianPacificIslander/TotalUndergrad * 100)
-finalwickdata <- mutate(finalwickdata, "AmericanrIndianPer" = AmericanIndian/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "AsianPer" = Asian/TotalUndergrad * 100)
+finalwickdata <- mutate(finalwickdata, "AmericanIndianPer" = AmericanIndian/TotalUndergrad * 100)
 finalwickdata <- mutate(finalwickdata, "UnknownPer" = RaceEthnicityUnknown/TotalUndergrad * 100)
 finalwickdata <- mutate(finalwickdata, "HawaiianPacificPer" = HawaiianPacificIslander/TotalUndergrad * 100)
 finalwickdata <- mutate(finalwickdata, "TwoOrMorePer" = TwoOrMore/TotalUndergrad * 100)
